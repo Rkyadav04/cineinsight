@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+:root {
+  --font-playfair: 'Playfair Display', Georgia, serif;
+  --font-dm-sans: 'DM Sans', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: #0a0a0b;
+  color: #e5e7eb;
+  font-family: var(--font-dm-sans);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Film grain overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: -200%;
+  width: 400%;
+  height: 400%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  animation: grain 0.4s steps(1) infinite;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #111113; }
+::-webkit-scrollbar-thumb { background: #2a2a30; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #f59e0b; }
+
+/* Skeleton shimmer */
+.skeleton {
+  background: linear-gradient(90deg, #18181c 25%, #2a2a30 50%, #18181c 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+  border-radius: 6px;
+}
+
+/* Sentiment badge */
+.badge-positive { background: rgba(34,197,94,0.12); color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
+.badge-mixed    { background: rgba(234,179,8,0.12);  color: #facc15; border: 1px solid rgba(234,179,8,0.25); }
+.badge-negative { background: rgba(239,68,68,0.12);  color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+
+/* Score ring animation */
+@keyframes ring-fill {
+  from { stroke-dashoffset: 339.3; }
+  to   { stroke-dashoffset: var(--target-offset); }
+}
+.score-ring { animation: ring-fill 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+@keyframes grain {
+  0%,100%{ transform: translate(0,0); }
+  10%    { transform: translate(-2%,-3%); }
+  20%    { transform: translate(3%,2%); }
+  30%    { transform: translate(-1%,4%); }
+  40%    { transform: translate(4%,-1%); }
+  50%    { transform: translate(-3%,3%); }
+  60%    { transform: translate(2%,-4%); }
+  70%    { transform: translate(-4%,1%); }
+  80%    { transform: translate(1%,-2%); }
+  90%    { transform: translate(-2%,4%); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up { animation: fade-up 0.6s ease-out forwards; }
+.delay-100 { animation-delay: 0.1s; opacity: 0; }
+.delay-200 { animation-delay: 0.2s; opacity: 0; }
+.delay-300 { animation-delay: 0.3s; opacity: 0; }
+.delay-400 { animation-delay: 0.4s; opacity: 0; }
