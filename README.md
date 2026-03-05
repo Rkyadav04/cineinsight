@@ -1,6 +1,6 @@
 # CineInsight — AI Movie Insight Builder
 
-A full-stack Next.js application that takes an IMDb movie ID and returns movie details, cast, ratings, plot, and an **AI-generated audience sentiment analysis** powered by Claude.
+A full-stack Next.js application that takes an IMDb movie ID and returns movie details, cast, ratings, plot, and an **AI-generated audience sentiment analysis**.
 
 ---
 
@@ -31,7 +31,7 @@ A full-stack Next.js application that takes an IMDb movie ID and returns movie d
 | Frontend | Next.js 14 (React App Router) | Co-locates frontend and API routes in one repo; no separate server needed    |
 | Backend  | Next.js API Routes (Node.js) | Serverless functions on Vercel — no separate Express server needed            |
 | Data     | OMDB API         | Free, accepts IMDb IDs directly, returns structured JSON with poster URLs                 |
-| AI       | Anthropic Claude (claude-sonnet) | Generates structured sentiment JSON; knowledge of film reception is reliable |
+| AI       | Gemini API | Generates structured sentiment JSON; knowledge of film reception is reliable |
 | Styling  | Tailwind CSS     | Utility-first, fast iteration, no CSS file overhead                                       |
 | Language | TypeScript       | Type safety across API shapes, components, and utility functions                          |
 
@@ -44,7 +44,7 @@ A full-stack Next.js application that takes an IMDb movie ID and returns movie d
 - Node.js ≥ 18
 - npm or yarn
 - OMDB API key (free at [omdbapi.com](https://www.omdbapi.com/apikey.aspx))
-- Anthropic API key (at [console.anthropic.com](https://console.anthropic.com))
+- Gemini API key (at [console.gemini.com](https://console.gemini.com))
 
 ### Local Development
 
@@ -108,7 +108,7 @@ ai-movie-insight/
 │   └── LoadingSkeleton.tsx  # Shimmer skeleton while loading
 ├── lib/
 │   ├── omdb.ts              # OMDB API client + ID validation
-│   └── claude.ts            # Anthropic SDK client + prompt
+│   └── gemini.ts            # Gemini SDK client + prompt
 ├── types/
 │   └── movie.ts             # Shared TypeScript interfaces
 └── __tests__/
@@ -150,5 +150,5 @@ Returns full movie details + AI sentiment in one call.
 ## Assumptions
 
 - OMDB free tier (1,000 requests/day) is sufficient for evaluation purposes. For production, upgrade to the $1/month tier.
-- Claude's training data contains reliable knowledge of mainstream films' critical and audience reception, making it a valid substitute for live review scraping (which would require bypassing rate limits and Terms of Service on sites like IMDb and Rotten Tomatoes).
+- Gemini training data contains reliable knowledge of mainstream films' critical and audience reception, making it a valid substitute for live review scraping (which would require bypassing rate limits and Terms of Service on sites like IMDb and Rotten Tomatoes).
 - The `next: { revalidate: 3600 }` cache on OMDB fetch reduces repeat API calls for the same movie.
